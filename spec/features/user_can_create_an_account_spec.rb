@@ -24,7 +24,7 @@ feature 'User can create a new account' do
     end
 
     describe 'unsuccessfully' do
-        describe 'with invalid email' do
+        describe 'with invalid email and password' do
             before do
                 fill_in 'Name', with: 'Blake'
                 fill_in 'Email', with: 'email.com'
@@ -41,7 +41,21 @@ feature 'User can create a new account' do
                 expect(page).to have_content 'Password is too short'
             end
         end
-    end
+        
+    describe 'with used credentials' do
+        before do
+          create :user
+          fill_in 'Name', with: 'New name'
+          fill_in 'Email', with: User.first.email 
+          fill_in 'Current password', with: User.first.encrypted_password
+          click_on 'Create'
+        end  
+        
+        it 'returns used credentials error message' do
+          expect(page).to have_content 'Name has been taken'
+        end
+      end
+  end
 end
 
     # redundant tests
