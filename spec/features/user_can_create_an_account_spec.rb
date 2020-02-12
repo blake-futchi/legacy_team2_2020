@@ -33,10 +33,13 @@ feature 'User can create a new account' do
                 click_on 'Create'
             end
 
-            it 'returns error message' do
+            it 'returns email error message' do
                 expect(page).to have_content 'Email is invalid'
             end
 
+            it 'returns password error message' do
+                expect(page).to have_content 'Password is too short'
+            end
         end
     end
 end
