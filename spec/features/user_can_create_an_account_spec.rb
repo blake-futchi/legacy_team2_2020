@@ -41,20 +41,8 @@ feature 'User can create a new account' do
                 expect(page).to have_content 'Password is too short'
             end
         end
-        
-    describe 'with used credentials' do
-        before do
-          create :user
-          fill_in 'Name', with: 'New name'
-          fill_in 'Email', with: User.first.email 
-          fill_in 'Current password', with: User.first.encrypted_password
-          click_on 'Create'
-        end  
-        
-        it 'returns used credentials error message' do
-          expect(page).to have_content 'Name has been taken'
-        end
-      end
+
+
   end
 end
 
@@ -75,3 +63,19 @@ end
     #   expect(page).to have_field 'Password confirmation'
     # end
 
+
+
+    # WIP
+        # describe 'with used credentials' do
+    #     before do
+    #       create :user
+    #       fill_in 'Name', with: 'New name'
+    #       fill_in 'Email', with: User.first.email 
+    #       fill_in 'Current password', with: User.first.encrypted_password
+    #       click_on 'Create'
+    #     end  
+        
+    #     it 'returns used credentials error message' do
+    #       expect(page).to have_content 'Name has been taken'
+    #     end
+    #   end
