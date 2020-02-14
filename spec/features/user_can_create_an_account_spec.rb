@@ -44,13 +44,15 @@ feature 'User can create a new account' do
     
     describe 'account exists error' do
       let(:registered_user) {create(:user)} 
+      before do
+        fill_in 'Email', with: registered_user.email
+        fill_in 'Password', with: 'password'
+        click_on 'Create'
+      end
   
-    it 'expect error message' do
-      fill_in 'Email', with: registered_user.email
-      fill_in 'Password', with: 'password'
-      click_on 'Create'
-      expect(page). to have_content 'Email has already been taken'
-    end
+      it 'expect error message' do
+        expect(page). to have_content 'Email has already been taken'
+      end
     end
   end
 end
